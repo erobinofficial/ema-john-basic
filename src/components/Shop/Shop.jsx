@@ -13,18 +13,18 @@ const Shop = () => {
       .then((data) => setProducts(data));
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     const storedCart = getShoppingCart();
     const savedCart = [];
-    for(const id in storedCart){
+    for (const id in storedCart) {
       const addedProduct = products.find((product) => product.id === id);
-      if(addedProduct){
+      if (addedProduct) {
         addedProduct.quantity = storedCart[id];
         savedCart.push(addedProduct);
       }
     }
     setCart(savedCart);
-  },[products])
+  }, [products]);
 
   // handle add to cart
   const handleAddToCart = (product) => {
@@ -33,42 +33,42 @@ const Shop = () => {
     addToDb(product.id);
   };
 
-  // calculate quantity of saved cart
-  const calculateQuantity = (cart) => {
-    const reducer = (accumulator, currentValue) => accumulator + currentValue.quantity;
-    const quantity = cart.reduce(reducer, 0);
-    return quantity;
-  };
-  const totalQuantity = calculateQuantity(cart);
+  // // calculate quantity of saved cart
+  // const calculateQuantity = (cart) => {
+  //   const reducer = (accumulator, currentValue) => accumulator + currentValue.quantity;
+  //   const quantity = cart.reduce(reducer, 0);
+  //   return quantity;
+  // };
+  // const totalQuantity = calculateQuantity(cart);
 
-  // Calculate total price
-  const totalPrice = (cart) => {
-    const reducer = (accumulator, currentValue) =>
-      accumulator + currentValue.price;
-    const total = cart.reduce(reducer, 0);
-    return total;
-  };
-  const total = totalPrice(cart);
+  // // Calculate total price
+  // const totalPrice = (cart) => {
+  //   const reducer = (accumulator, currentValue) =>
+  //     accumulator + currentValue.price;
+  //   const total = cart.reduce(reducer, 0);
+  //   return total;
+  // };
+  // const total = totalPrice(cart);
 
-  // calculate total shipping cost
-  const totalShipping = (cart) => {
-    const reducer = (accumulator, currentValue) =>
-      accumulator + currentValue.shipping;
-    const total = cart.reduce(reducer, 0);
-    return total;
-  };
-  const totalShippingCost = totalShipping(cart);
+  // // calculate total shipping cost
+  // const totalShipping = (cart) => {
+  //   const reducer = (accumulator, currentValue) =>
+  //     accumulator + currentValue.shipping;
+  //   const total = cart.reduce(reducer, 0);
+  //   return total;
+  // };
+  // const totalShippingCost = totalShipping(cart);
 
-  //  calculate total tax
-  const totalTax = (cart) => {
-    const reducer = (accumulator, currentValue) =>
-      accumulator + currentValue.price;
-    const total = cart.reduce(reducer, 0);
-    return (total*0.05).toFixed(2);
-  };
-  const totalTaxCost = parseFloat(totalTax(cart));
+  // //  calculate total tax
+  // const totalTax = (cart) => {
+  //   const reducer = (accumulator, currentValue) =>
+  //     accumulator + currentValue.price;
+  //   const total = cart.reduce(reducer, 0);
+  //   return (total*0.05).toFixed(2);
+  // };
+  // const totalTaxCost = parseFloat(totalTax(cart));
 
-  const subTotal = total + totalShippingCost + totalTaxCost;
+  // const subTotal = total + totalShippingCost + totalTaxCost;
 
   return (
     <div className="grid grid-cols-5">
@@ -82,14 +82,7 @@ const Shop = () => {
         ))}
       </div>
       <div className="bg-[#FFE0B3] col-end-6 p-6">
-        <Cart
-          cart={cart}
-          totalPrice={total}
-          shipping={totalShippingCost}
-          totalTax={totalTaxCost}
-          subTotal={subTotal}
-          quantity={totalQuantity}
-        ></Cart>
+        <Cart cart={cart}></Cart>
       </div>
     </div>
   );
