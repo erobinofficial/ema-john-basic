@@ -11,7 +11,6 @@ const Cart = ({cart}) => {
   }
   const tax = parseFloat((total*0.05).toFixed(2));
   const subTotal = total + shipping + tax;
-  console.log(tax);
   return (
     <div className="sticky top-0">
       <div className="flex items-center justify-center text-2xl">
